@@ -1,9 +1,9 @@
 'use strict';
 import * as vscode from 'vscode';
-import { addUserInfo, updateTimeInfo } from './generator'
+import { addUserInfo, updateTimeInfo, getConfig, getFileType } from './generator'
 
 const cacheFileUpdateTime = {}
-
+const confg = getConfig()
 export function activate(context: vscode.ExtensionContext) {
 
     vscode.workspace.onDidSaveTextDocument(({ fileName }) => {
@@ -12,6 +12,9 @@ export function activate(context: vscode.ExtensionContext) {
             return;
         }
         cacheFileUpdateTime[fileName] = Number(new Date());
+        if (!~confg.autoUpdateFileType.indexOf(getFileType(fileName))) {
+            return;
+        }
         updateTimeInfo()
     });
 

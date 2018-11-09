@@ -7,6 +7,7 @@ import { defaultTpl } from './config'
 interface IObject {
     author: string
     email: string,
+    autoUpdateFileType: Array<string>,
     date: string
 }
 const modifyDate = `@modify date `
@@ -15,19 +16,20 @@ function getDate() {
     return moment().format('YYYY-MM-DD HH:mm:ss')
 }
 
-function getConfig() {
+export function getConfig() {
     let userConfig = vscode.workspace.getConfiguration('generator.author');
     const config: IObject = {
         author: userConfig.get('author', 'author'),
         email: userConfig.get('email', 'email@email'),
+        autoUpdateFileType: userConfig.get('autoUpdateFileType', ["js", "jsx", "css", "ts", "tsx"]),
         date: getDate()
     }
     return config;
 }
 
-function getFileType(document) {
-    let fileInfo = document.fileName.split('.')
-    return fileInfo.length > 1 ? fileInfo.pop() : 'default'
+export function getFileType(fileName) {
+    let fileInfo = fileName.split('.')
+    return fileInfo && fileInfo.length > 1 ? fileInfo.pop() : 'default'
 }
 
 function getTplPath(type) {
@@ -50,7 +52,7 @@ function getTplPath(type) {
 const getTplText = (document) => {
     let text = ''
     const { author, email, date } = getConfig()
-    let type = getFileType(document)
+    let type = getFileType(document.fileName)
     let tplPath = getTplPath(type)
     try {
         text = tplPath ? fs.readFileSync(tplPath, 'utf-8') : defaultTpl

@@ -2,7 +2,7 @@
     "name": "generator-author",
     "displayName": "generator-author",
     "description": "generator author, auto update modify file time",
-    "version": "0.0.1",
+    "version": "0.0.3",
     "publisher": "littlebearbond",
     "icon": "images/logo.png",
     "engines": {
@@ -43,6 +43,11 @@
                     "type": "string",
                     "default": "[example@mail.com]",
                     "description": "email address"
+                },
+                "generator.author.autoUpdateFileType": {
+                    "type": "string",
+                    "default": ["js", "jsx", "css", "ts", "tsx"],
+                    "description": "auto udpate modifytime file type"
                 }
             }
         }
