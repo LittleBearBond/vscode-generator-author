@@ -1,0 +1,1 @@
+# vscode-generator-author
