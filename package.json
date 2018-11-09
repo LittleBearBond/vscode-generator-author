@@ -1,9 +1,9 @@
 {
     "name": "generator-author",
     "displayName": "generator-author",
-    "description": "Automatically add HTML/XML close tag, same as Visual Studio IDE or Sublime Text",
+    "description": "generator author, auto update modify file time",
     "version": "0.0.1",
-    "publisher": "formulahendry",
+    "publisher": "littlebearbond",
     "icon": "images/logo.png",
     "engines": {
         "vscode": "^1.16.0"
@@ -26,6 +26,9 @@
         "commands": [{
             "command": "extension.addAuthorInfo",
             "title": "Add author Info"
+        }, {
+            "command": "extension.updateAuthorInfo",
+            "title": "Update author Info"
         }],
         "configuration": {
             "type": "object",
@@ -43,6 +46,13 @@
                 }
             }
         }
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/LittleBearBond/vscode-generator-author.git"
+    },
+    "bugs": {
+        "url": "https://github.com/LittleBearBond/vscode-generator-author/issues"
     },
     "scripts": {
         "vscode:prepublish": "tsc -p ./",

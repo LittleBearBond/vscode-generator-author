@@ -32,12 +32,15 @@ function getFileType(document) {
 
 function getTplPath(type) {
     type = type.toLowerCase()
-    let extDir = vscode.extensions.getExtension('xj_bond.vscode-generator-author').extensionPath
-    let extPath = path.join(extDir, 'templates', `${type}.tpl`)
+    let extDir = (vscode.extensions.getExtension('littlebearbond.vscode-generator-author'))
+    if (!extDir || !extDir.extensionPath) {
+        return null
+    }
+    let extPath = path.join(extDir.extensionPath, 'templates', `${type}.tpl`)
     if (fs.existsSync(extPath)) {
         return extPath
     }
-    const defaultPath = path.join(extDir, 'templates', 'default.tpl')
+    const defaultPath = path.join(extDir.extensionPath, 'templates', 'default.tpl')
     if (fs.existsSync(defaultPath)) {
         return defaultPath
     }
@@ -66,14 +69,14 @@ export function addUserInfo() {
     // const text = doc.getText();
     editor.edit(builder => {
         try {
-            builder.insert(new vscode.Position(0, 0), `test`)
+            builder.insert(new vscode.Position(0, 0), getTplText(editor.document))
         } catch (error) {
             vscode.window.showErrorMessage(error.message)
         }
     });
 }
 
-export function updateInfo() {
+export function updateTimeInfo() {
     const editor = vscode.window.activeTextEditor
     const rangeText = editor.document.getText(new vscode.Range(new vscode.Position(0, 0), new vscode.Position(21, 0)));
     const { line } = editor.document.positionAt(rangeText.indexOf(modifyDate))
@@ -87,6 +90,7 @@ export function updateInfo() {
     editor.edit((builder) => {
         try {
             builder.replace(range, replaceText)
+            editor.document.save();
         } catch (error) {
             vscode.window.showErrorMessage(error.message)
         }
