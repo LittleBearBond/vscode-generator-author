@@ -2,7 +2,7 @@
     "name": "generator-author",
     "displayName": "generator-author",
     "description": "generator author, auto update modify file time",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "publisher": "littlebearbond",
     "icon": "images/logo.png",
     "engines": {
@@ -19,7 +19,8 @@
         "info"
     ],
     "activationEvents": [
-        "onCommand:extension.addAuthorInfo"
+        "onCommand:extension.addAuthorInfo",
+        "onCommand:extension.updateAuthorInfo"
     ],
     "main": "./out/src/extension",
     "contributes": {
