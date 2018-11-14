@@ -92,7 +92,9 @@ export function updateTimeInfo() {
     editor.edit((builder) => {
         try {
             builder.replace(range, replaceText)
-            editor.document.save();
+            setTimeout(() => {
+                editor.document.save();
+            }, 0);
         } catch (error) {
             vscode.window.showErrorMessage(error.message)
         }
