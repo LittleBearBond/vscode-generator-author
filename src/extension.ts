@@ -15,16 +15,13 @@ export function activate(context: vscode.ExtensionContext) {
         if (!~confg.autoUpdateFileType.indexOf(getFileType(fileName))) {
             return;
         }
+        console.log(`更新文件: ${fileName}, 时间: ${cacheFileUpdateTime[fileName]}`)
         updateTimeInfo()
     });
 
-    const addAuthor = vscode.commands.registerCommand('extension.addAuthorInfo', () => {
-        addUserInfo()
-    });
+    const addAuthor = vscode.commands.registerCommand('extension.addAuthorInfo', () => addUserInfo());
 
-    const updateAuthorInfo = vscode.commands.registerCommand('extension.updateAuthorInfo', () => {
-        updateTimeInfo()
-    });
+    const updateAuthorInfo = vscode.commands.registerCommand('extension.updateAuthorInfo', () => updateTimeInfo());
 
     context.subscriptions.push(addAuthor);
     context.subscriptions.push(updateAuthorInfo);
